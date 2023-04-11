@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="txtfiles">
+      <UniqueIdentifier>{6f656af7-5eb3-40e8-b8ae-0afc8b979fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\astro">
+      <UniqueIdentifier>{40373238-14b5-40fd-b355-3eadca51640a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\neyro">
+      <UniqueIdentifier>{b45777ef-21bc-4ba7-b077-d2e8955d522f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Neyron.h">
@@ -21,13 +30,39 @@
     <ClInclude Include="Astrocite.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Astro_dif.h">
+      <Filter>Исходные файлы\astro</Filter>
+    </ClInclude>
+    <ClInclude Include="Neyro_dif.h">
+      <Filter>Исходные файлы\neyro</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Neyron.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Astrocite.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Astro_dif.cpp">
+      <Filter>Исходные файлы\astro</Filter>
     </ClCompile>
+    <ClCompile Include="Neyro_dif.cpp">
+      <Filter>Исходные файлы\neyro</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="A_Hz.txt">
+      <Filter>txtfiles</Filter>
+    </Text>
+    <Text Include="last_values_A.txt">
+      <Filter>txtfiles</Filter>
+    </Text>
+    <Text Include="last_values_N.txt">
+      <Filter>txtfiles</Filter>
+    </Text>
+    <Text Include="N_Hz.txt">
+      <Filter>txtfiles</Filter>
+    </Text>
+    <Text Include="results.txt">
+      <Filter>txtfiles</Filter>
+    </Text>
   </ItemGroup>
 </Project>

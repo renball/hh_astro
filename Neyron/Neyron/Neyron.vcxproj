@@ -128,11 +128,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Astrocite.h" />
+    <ClInclude Include="Astro_dif.h" />
     <ClInclude Include="Neyron.h" />
+    <ClInclude Include="Neyro_dif.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Astrocite.cpp" />
-    <ClCompile Include="Neyron.cpp" />
+    <ClCompile Include="Astro_dif.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Neyro_dif.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="A_Hz.txt" />
+    <Text Include="last_values_A.txt" />
+    <Text Include="last_values_N.txt" />
+    <Text Include="N_Hz.txt" />
+    <Text Include="results.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
