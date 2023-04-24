@@ -10,75 +10,48 @@
 class Astrocite
 {
 private:
-	double c0 = 2;
-	double c1 = 0.185;
-	double v1 = 6;
-	double v2 = 0.11;
-	double v3 = 2.2 ;
-	double v5 = 0.025 ;
-	double v6 = 0.2 ;
-	double k1 = 0.5 ;
-	double k2 = 1 ;
-	double k3 = 0.1;
-	double k4 = 1.1 ;
-	double a2 = 0.14 ;
-	double d1 = 0.13;
-	double d2 = 1.049;
-	double d3 = 0.9434;
-	double d5 = 0.082;
-	double aG = 25;
-	double bG = 500;
-	double a= 0.8;
-	double tIP3 = 7.143;
-	double IP3X=0.16;
-	double dCa = 0.001;
-	double dIP3 = 0.12;
+	double c_0 = 2;
+	double c_1 = 0.185;
+	double v_1 = 6;
+	double v_2 = 0.11;
+	double v_3 = 2.2;
+	double v_5 = 0.025;
+	double v_6 = 0.2;
+	double k_1 = 0.5;
+	double k_2 = 1;
+	double k_3 = 0.1;
+	double k_4 = 1.1;
+	double a_2 = 0.14;
+	double d_1 = 0.13;
+	double d_2 = 1.049;
+	double d_3 = 0.9434;
+	double d_5 = 0.082;
+	double alpha_G = 25;
+	double beta_G = 500;
+	double alpha = 0.8;
+	double tau_IP3 = 7.143;
+	double IP3_star = 0.16;
+	//double d_Ca = 0.001;
+	//double d_IP3 = 0.12;
 
-
-	double v4 = 0.5;
+	double v_4=0.55;
 
 public:
 
 	double f[Na];
 
-	double Jchannel() {
-		return c1 * v1 * IP3 * IP3 * IP3 * Ca * Ca * Ca * z * z * z * ((c0 / c1) - (1 + 1 / c1) * Ca)/(((IP3+d1)*(Ca+d5))* ((IP3 + d1) * (Ca + d5))* ((IP3 + d1) * (Ca + d5)));
-	}
-
-	double Jpump() {
-		return v3 * Ca * Ca / (k3 * k3 + Ca * Ca);
-	}
-	double JLeak() {
-		return c1 * v2 * (c0 / c1 - (1 + 1 / c1) * Ca);
-	}
-	double Jin() {
-		return v5 + v6 * IP3 * IP3 / (k2 * k2 + IP3 * IP3);
-	}
-	double Jout() {
-		return k1 * Ca;
-	}
-	double JPLC() {
-		return v4 * (Ca + (1 - a) * k4) / (Ca + k4);
-	}
-
-	double U_J(int i, double f[Na]) {
-		double Jc; Jc = Jchannel();
-		double Jp;  Jp = Jpump();
-		double Jl;  Jl = JLeak();
-		double Ji; Ji = Jin();
-		double Jo;  Jo = Jout();
-		double J_plc;  J_plc = JPLC();
-
+	double UllahJung(int i, double f[Na])
+	{
 		switch (i)
 		{
-		case 0:
-			return Jc - Jp + Jl + Ji + Jo;
+		case 0: // Ca
+			return (c_1 * v_1 * pow(IP3, 3) * pow(Ca, 3) * pow(z, 3) * (c_0 / c_1 - (1 + 1 / c_1) * Ca) / pow(((IP3 + d_1) * (Ca + d_5)), 3)) - (v_3 * pow(Ca, 2) / (pow(k_3, 2) + pow(Ca, 2))) + (c_1 * v_2 * (c_0 / c_1 - (1 + 1 / c_1) * Ca)) + (v_5 + v_6 * pow(IP3, 2) / (pow(k_2, 2) + pow(IP3, 2))) - k_1 * Ca;
 
-		case 1:
-			return ((IP3X - IP3) / tIP3) + J_plc;
+		case 1: // IP3
+			return (IP3_star - IP3) / tau_IP3 + v_4 * (Ca + (1 - alpha) * k_4) / (Ca + k_4);
 
-		case 2:
-			return (a2 * (d2 * ((IP3 + d1) / (IP3 + d3))) * (1 - z) - Ca * z);
+		case 2: // z
+			return a_2 * (d_2 * ((IP3 + d_1) / (IP3 + d_3)) * (1 - z) - Ca * z);
 		}
 		return 0;
 	}
@@ -89,7 +62,7 @@ public:
 
 		// k1
 		for (int i = 0; i < Na; i++)
-			k[i][0] = U_J(i, f) * dt;
+			k[i][0] = UllahJung(i, f) * dt;
 
 		double phi_k1[Na];
 		for (int i = 0; i < Na; i++)
@@ -97,7 +70,7 @@ public:
 
 		// k2
 		for (int i = 0; i < Na; i++)
-			k[i][1] = U_J(i, phi_k1) * dt;
+			k[i][1] = UllahJung(i, phi_k1) * dt;
 
 		double phi_k2[Na];
 		for (int i = 0; i < Na; i++)
@@ -105,7 +78,7 @@ public:
 
 		// k3
 		for (int i = 0; i < Na; i++)
-			k[i][2] = U_J(i, phi_k2) * dt;
+			k[i][2] = UllahJung(i, phi_k2) * dt;
 
 		double phi_k3[Na];
 		for (int i = 0; i < Na; i++)
@@ -113,7 +86,7 @@ public:
 
 		// k4
 		for (int i = 0; i < Na; i++)
-			k[i][3] = U_J(i, phi_k3) * dt;
+			k[i][3] = UllahJung(i, phi_k3) * dt;
 
 		for (int i = 0; i < Na; i++)
 			f_next[i] = f[i] + (k[i][0] + 2 * k[i][1] + 2 * k[i][2] + k[i][3]) / 6;
@@ -124,7 +97,6 @@ public:
 		for (int i = 0; i < Na; i++)
 			target[i] = source[i];
 	}
-
 
 };
 
