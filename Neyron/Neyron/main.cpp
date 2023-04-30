@@ -9,7 +9,7 @@ using namespace std;
 
 void main() {
 	int in;
-	double t = 0.0; double dt = 0.00005; double tmax = 180.0;
+	double t = 0.0; double dt = 0.001; double tmax = 200.0;
 	cin >> in;
 
 	if (in == 1) {

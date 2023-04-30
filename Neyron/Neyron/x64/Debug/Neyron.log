@@ -1,5 +1,2 @@
-﻿  Neyro_dif.cpp
-  main.cpp
-C:\Users\q\source\repos\Neyron\Neyron\main.cpp(10,13): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
-  Создание кода...
+﻿  Astro_dif.cpp
   Neyron.vcxproj -> C:\Users\q\source\repos\Neyron\x64\Debug\Neyron.exe

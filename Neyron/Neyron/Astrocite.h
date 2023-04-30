@@ -34,7 +34,7 @@ private:
 	//double d_Ca = 0.001;
 	//double d_IP3 = 0.12;
 
-	double v_4=0.55;
+	double v_4=0.4;
 
 public:
 
